@@ -3,12 +3,12 @@
 <div class="span-24">
 
 <div class="span-6">
-<%= render :partial => 'lines/new', :object => @line %>
+<%= render 'lines/new', :object => @line, :chat => @chat %>
 <span id="audio" />
 </div>
 
 <div class="span-12">
-<span class="span-12" id="chat">&nbsp;</span>
+<span class="span-12" id="chat" guid="<%= @chat.guid %>">&nbsp;</span>
 </div>
 
 <div class="span-6 last">

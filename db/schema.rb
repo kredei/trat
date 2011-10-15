@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20111015032624) do
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "chats_id"
     t.integer  "chat_id"
   end
 
