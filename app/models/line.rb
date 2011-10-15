@@ -1,5 +1,6 @@
 class Line < ActiveRecord::Base
   belongs_to :chat
+  has_many :translations
 
   scope :recent, lambda { |chat_guid| 
     joins(:chat).where(:chats => {:guid => chat_guid}).order("created_at desc").limit(10)

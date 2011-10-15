@@ -5,6 +5,7 @@ gem 'rails', '3.1.1'
 gem 'sqlite3', '1.3.4'
 gem 'therubyracer', '0.9.8'
 gem 'uuidtools', '2.1.2'
+gem 'rest-client', '1.6.7'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
