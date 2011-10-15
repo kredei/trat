@@ -1,0 +1,3 @@
+$('#audio').html('<audio src="<%= @line.audio_address %>" autoplay="autoplay">Your browser does not support HTML5 audio.</audio>');
+$('#chat').append('<%= @line.text %><br/>');
+$('#line_text').val('');
