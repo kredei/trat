@@ -1,17 +1,18 @@
 class Translation < ActiveRecord::Base
   belongs_to :line
 
-  SERVICE_URL = "https://www.googleapis.com/language/translate/v2"
-
-  def self.create_from_line(line, target_language)
-    remote_translation = RestClient.get(SERVICE_URL, :params => { 
-      :key => API_KEYS['google'], 
-      :q => line.text, 
-      :source => line.language, 
-      :target => target_language
-    })
-    text = JSON::parse(remote_translation)['data']['translations'][0]['translatedText']
-    self.create!(:text => text, :language => target_language)
+  def self.generate(string, language_code)
+    # Public testing API key, replace with your own if needed
+    # TODO refactor MS translation API calls into separate gem
+    r = RestClient.post('https://datamarket.accesscontrol.windows.net/v2/OAuth2-13', :grant_type => 'client_credentials', :client_id => '0000000000', :client_secret => 'pEGjuuUB2y3OUhkcG2CHTNr4MoWw9hX+nDCu75HbMc8=', :scope => 'http://api.microsofttranslator.com')
+    token = JSON.parse(r)
+    uri = URI('http://api.microsofttranslator.com/V2/Http.svc/Translate')
+    params = {'from' => 'en', 'to' => 'de', 'text' => string}
+    uri.query = URI.encode_www_form(params)
+    req = Net::HTTP::Get.new(uri.request_uri)
+    req['Authorization'] = 'Bearer ' + token['access_token']
+    res = Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
+    res
   end
 
 end
